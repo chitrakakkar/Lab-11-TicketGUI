@@ -11,7 +11,8 @@ import java.util.Vector;
  */
 public class FileIO {
 
-    private static String filename = "ResolvedTicket.TXT";
+    private static String Rfilename = "ResolvedTicket.TXT";
+    private static String OFileName = " OpenTickets.TXT";
 
 
     static Vector ReadingFile() {
@@ -20,7 +21,7 @@ public class FileIO {
         Vector<Tickets> ALlTickets = new Vector<Tickets>();
         try
         {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader(OFileName));
             String TicketData = reader.readLine();
             while (TicketData != null) {
                 Tickets T = parseLakeDataIntoTicket(TicketData);
@@ -36,12 +37,12 @@ public class FileIO {
 
         }
     }
-    static void WriteTickets(Vector<Tickets> tickets)
+    static void WriteResolvedTickets(Vector<Tickets> tickets)
     {
 
         //Join name and list of times with commas eg.  "Como,45,56,32,56"
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename)))
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Rfilename)))
         {
 
             for (Tickets ticket : tickets)
@@ -58,6 +59,29 @@ public class FileIO {
         catch (IOException ioe) {
             System.out.println("Error writing data");
         }
+    }
+    static void WriteOpenTickets(Vector<Tickets>  tickets)
+    {
+        try
+        {
+            BufferedWriter writer1 = new BufferedWriter(new FileWriter(OFileName));
+            for (Tickets ticket1 : tickets)
+            {
+                String output =ticket1.TicketId.toString();
+                output += ticket1.getDescription();
+                output += ticket1.getSeverity();
+                output+= "\n";
+                writer1.write(output);
+
+
+            }
+
+        }
+        catch (IOException ioe)
+        {
+            System.out.println("Error writing data");
+        }
+
     }
 
     static Tickets parseLakeDataIntoTicket(String TicketData)

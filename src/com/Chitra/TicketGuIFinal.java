@@ -1,5 +1,7 @@
 package com.Chitra;
 
+import com.sun.tools.internal.ws.processor.model.Model;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,7 @@ import java.util.Vector;
 public class TicketGuIFinal extends JFrame
 {
     private static final  int Pref_W = 500;
-    private static final  int Pref_H = 800;
+    private static final  int Pref_H = 500;
     // Stack over flow
     @Override
     public Dimension getPreferredSize()
@@ -28,25 +30,24 @@ public class TicketGuIFinal extends JFrame
     private JComboBox <Integer>severityComboBox;
     private JList<Tickets> OpenTicketList;
     private JButton resolveButton;
-    private JButton SaveAndQuit;
+    private JButton Save;
     private JLabel SeverityLabel;
     private JButton addToListButton;
     private JTextField TicketIdTextField;
-    private JList ResolvedTicketList;
     private JTextField EnterResolutionTextField;
+    private JButton Quit;
     protected DefaultListModel<Tickets> listModel;
-    protected DefaultListModel<Tickets> listModel2;
-
+    //protected DefaultListModel<Tickets> listModel2;
 
     Vector <Tickets> TicketVector;
     TicketGuIFinal()
     {
         super("Ticket Manager");
         TicketVector = FileIO.ReadingFile();
-//        listModel = new DefaultListModel<>(TicketVector);
+
 //        listModel2 = new DefaultListModel<>(TicketVector);
-        listModel = new DefaultListModel<>();
-        listModel2 = new DefaultListModel<>();
+        //listModel = new DefaultListModel<>();
+        //listModel2 = new DefaultListModel<>();
         OpenTicketList.setModel(listModel);
 
         configureSeverity();
@@ -54,6 +55,9 @@ public class TicketGuIFinal extends JFrame
         setContentPane(rootPanel);
         pack();
         setVisible(true);
+        listModel = new DefaultListModel<>(TicketVector);
+
+
 
     }
     protected void configureSeverity()
@@ -91,15 +95,16 @@ public class TicketGuIFinal extends JFrame
 
             }
         });
-        SaveAndQuit.addActionListener(new ActionListener()
+        Save.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(TicketGuIFinal.this, "Are you sure you want to save and exit?", "Exit?", JOptionPane.OK_CANCEL_OPTION)) {
+                listModel.removeElement(OpenTicketList.getSelectedValue());
+                //write all resolved tickets into a file
+
                     //Save all of the data...
-                    FileIO.WriteTickets(TicketVector);}
-                System.exit(0);
+                FileIO.WriteResolvedTickets(TicketVector);
             }
         });
         resolveButton.addActionListener(new ActionListener()
@@ -107,18 +112,31 @@ public class TicketGuIFinal extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                EnterResolutionTextField.grabFocus();
+//                JList OpenTicketList = new JList(listModel);
+//                JList ResolvedTicketList = new JList(listModel2);
+//                ResolvedTicketList.setModel(listModel2);
+//                for (Object selectedValue:OpenTicketList.getSelectedValuesList()
+//                     ) {
+//                    listModel2.addElement((Tickets)selectedValue);
+//                    listModel.removeElement(selectedValue);
+//                }
 
 
-                JList OpenTicketList = new JList(listModel);
-                JList ResolvedTicketList = new JList(listModel2);
-                ResolvedTicketList.setModel(listModel2);
-                for (Object selectedValue:OpenTicketList.getSelectedValuesList()
-                     ) {
-                    listModel2.addElement((Tickets)selectedValue);
-                    listModel.removeElement(selectedValue);
-                }
 
-             // listModel.remove(OpenTicketList.getSelectedIndex());listModel2.addElement(ResolvedTickets);
+            }
+        });
+        Quit.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(TicketGuIFinal.this, "Are you sure you want to save and exit?", "Exit?", JOptionPane.OK_CANCEL_OPTION)) {
+                    //Save all of the data...
+                    FileIO.WriteOpenTickets(TicketVector);}
+
+                System.exit(0);
+                //write all open tickets into a file
 
             }
         });
