@@ -18,7 +18,8 @@ public class FileIO {
         // vector implements a dynamic array. It is similar to ArrayList
         // but more synchronized and contains many legacy methods
         Vector<Tickets> ALlTickets = new Vector<Tickets>();
-        try {
+        try
+        {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             String TicketData = reader.readLine();
             while (TicketData != null) {

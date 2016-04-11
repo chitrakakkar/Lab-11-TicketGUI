@@ -41,8 +41,9 @@ public class TicketGuIFinal extends JFrame
     TicketGuIFinal()
     {
         super("Ticket Manager");
-        listModel = new DefaultListModel<>();
-        listModel2 = new DefaultListModel<Tickets>();
+        TicketVector = FileIO.ReadingFile();
+        listModel = new DefaultListModel<>(TicketVector);
+        listModel2 = new DefaultListModel<>(TicketVector);
         OpenTicketList.setModel(listModel);
 
         configureSeverity();
