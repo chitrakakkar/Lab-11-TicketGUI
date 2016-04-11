@@ -47,6 +47,7 @@ public class TicketGuIFinal extends JFrame
         setContentPane(rootPanel);
         pack();
         setVisible(true);
+
     }
     protected void configureSeverity()
     {
@@ -71,7 +72,7 @@ public class TicketGuIFinal extends JFrame
                 int Id = (Integer.parseInt(TicketIdTextField.getText()));
                 int sevLevel = Integer.parseInt(severityComboBox.getSelectedItem().toString());
                 //int severity = (Integer)severityLevel.getSelectedItem();
-                Tickets newTickets = new Tickets(ticket,Id ,sevLevel);
+                Tickets newTickets = new Tickets(Id,ticket,sevLevel);
                 listModel.addElement(newTickets);
                 ProblemTextField.setText("");
                 TicketIdTextField.setText("");

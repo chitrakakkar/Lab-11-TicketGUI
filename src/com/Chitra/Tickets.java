@@ -11,16 +11,19 @@ public class Tickets
     private static int staticTicketIDCounter =1;
     protected String description;
     protected int severity;
+    protected String resolution;
 
-    public String getResolution() {
+    public String getResolution()
+    {
         return resolution;
     }
 
-    public void setResolution(String resolution) {
+    public void setResolution(String resolution)
+    {
         this.resolution = resolution;
     }
 
-    protected String resolution;
+
 
     public String getDescription() {
         return description;
@@ -38,16 +41,14 @@ public class Tickets
         this.severity = severity;
     }
 
-    Tickets(String desc,int ticketId, int Sev)
+    Tickets(int ticketId, String desc,int Sev)
     {
 
-        this.description = desc;
-        this.severity = Sev;
         this.TicketId = staticTicketIDCounter;
         staticTicketIDCounter++;
-
+        this.description = desc;
+        this.severity = Sev;
     }
-
     @Override
     public String toString()
     {
