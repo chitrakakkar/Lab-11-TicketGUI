@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 /**
  * Created by chitrakakkar on 4/8/16.
@@ -27,7 +28,7 @@ public class TicketGuIFinal extends JFrame
     private JComboBox <Integer>severityComboBox;
     private JList<Tickets> OpenTicketList;
     private JButton resolveButton;
-    private JButton quitButton;
+    private JButton SaveAndQuit;
     private JLabel SeverityLabel;
     private JButton addToListButton;
     private JTextField TicketIdTextField;
@@ -35,10 +36,12 @@ public class TicketGuIFinal extends JFrame
     private JTextField EnterResolutionTextField;
     protected DefaultListModel<Tickets> listModel;
     protected DefaultListModel<Tickets> listModel2;
+
+    Vector <Tickets> TicketVector;
     TicketGuIFinal()
     {
         super("Ticket Manager");
-        listModel = new DefaultListModel<Tickets>();
+        listModel = new DefaultListModel<>();
         listModel2 = new DefaultListModel<Tickets>();
         OpenTicketList.setModel(listModel);
 
@@ -60,10 +63,12 @@ public class TicketGuIFinal extends JFrame
             severityComboBox.addItem(x);
         }
     }
-    protected void addListeners() {
+    protected void addListeners()
+    {
 
 
-        addToListButton.addActionListener(new ActionListener() {
+        addToListButton.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -82,10 +87,14 @@ public class TicketGuIFinal extends JFrame
 
             }
         });
-        quitButton.addActionListener(new ActionListener()
+        SaveAndQuit.addActionListener(new ActionListener()
         {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(TicketGuIFinal.this, "Are you sure you want to save and exit?", "Exit?", JOptionPane.OK_CANCEL_OPTION)) {
+                    //Save all of the data...
+                    FileIO.WriteTickets(TicketVector);}
                 System.exit(0);
             }
         });
@@ -103,7 +112,6 @@ public class TicketGuIFinal extends JFrame
                      ) {
                     listModel2.addElement((Tickets)selectedValue);
                     listModel.removeElement(selectedValue);
-
                 }
 
              // listModel.remove(OpenTicketList.getSelectedIndex());listModel2.addElement(ResolvedTickets);

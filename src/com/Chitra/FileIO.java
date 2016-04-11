@@ -14,7 +14,7 @@ public class FileIO {
     private static String filename = "ResolvedTicket.TXT";
 
 
-    public void ReadingFile() {
+    static Vector ReadingFile() {
         // vector implements a dynamic array. It is similar to ArrayList
         // but more synchronized and contains many legacy methods
         Vector<Tickets> ALlTickets = new Vector<Tickets>();
@@ -22,14 +22,15 @@ public class FileIO {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             String TicketData = reader.readLine();
             while (TicketData != null) {
-                Tickets l = parseLakeDataIntoTicket(TicketData);
-                ALlTickets.add(l);
+                Tickets T = parseLakeDataIntoTicket(TicketData);
+                ALlTickets.add(T);
                 TicketData = reader.readLine();
 
             }
+            return ALlTickets;
         } catch (IOException ioe) {
             System.out.println("Error reading file");
-            return;
+            return new Vector<>();
 
 
         }
@@ -47,6 +48,7 @@ public class FileIO {
                 String output =ticket.TicketId.toString();
                 output += ticket.getDescription();
                 output += ticket.getSeverity();
+                output +=ticket.getResolution();
                 output+= "\n";
                 writer.write(output);
             }
