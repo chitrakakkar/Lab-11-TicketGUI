@@ -48,6 +48,7 @@ public class TicketGuIFinal extends JFrame
 //        listModel2 = new DefaultListModel<>(TicketVector);
         //listModel = new DefaultListModel<>();
         //listModel2 = new DefaultListModel<>();
+        listModel = new DefaultListModel<>(TicketVector);
         OpenTicketList.setModel(listModel);
 
         configureSeverity();
@@ -55,7 +56,7 @@ public class TicketGuIFinal extends JFrame
         setContentPane(rootPanel);
         pack();
         setVisible(true);
-        listModel = new DefaultListModel<>(TicketVector);
+
 
 
 
@@ -121,9 +122,6 @@ public class TicketGuIFinal extends JFrame
 //                    listModel2.addElement((Tickets)selectedValue);
 //                    listModel.removeElement(selectedValue);
 //                }
-
-
-
             }
         });
         Quit.addActionListener(new ActionListener()
