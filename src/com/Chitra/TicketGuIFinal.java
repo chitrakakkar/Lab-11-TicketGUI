@@ -37,13 +37,16 @@ public class TicketGuIFinal extends JFrame
     protected DefaultListModel<Tickets> listModel;
     protected DefaultListModel<Tickets> listModel2;
 
+
     Vector <Tickets> TicketVector;
     TicketGuIFinal()
     {
         super("Ticket Manager");
         TicketVector = FileIO.ReadingFile();
-        listModel = new DefaultListModel<>(TicketVector);
-        listModel2 = new DefaultListModel<>(TicketVector);
+//        listModel = new DefaultListModel<>(TicketVector);
+//        listModel2 = new DefaultListModel<>(TicketVector);
+        listModel = new DefaultListModel<>();
+        listModel2 = new DefaultListModel<>();
         OpenTicketList.setModel(listModel);
 
         configureSeverity();
